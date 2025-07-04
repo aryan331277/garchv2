@@ -1,17 +1,14 @@
-# vol_dashboard.py
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="NeuroGARCH++ Dashboard", layout="wide")
-st.title("📈 NeuroGARCH++ Volatility Forecast Dashboard")
+st.set_page_config(page_title="Dashboard", layout="wide")
+st.title("Volatility Forecast Dashboard")
 
-# Load Data
 returns = pd.read_csv("returns.csv", parse_dates=['date'], index_col='date')
 vol = pd.read_csv("forecast_vol.csv", parse_dates=['date'], index_col='date')
 VaR = pd.read_csv("VaR_table.csv", parse_dates=['date'], index_col='date')
 
-# Ensure datetime
 returns.index = pd.to_datetime(returns.index)
 vol.index = pd.to_datetime(vol.index)
 VaR.index = pd.to_datetime(VaR.index)
@@ -36,6 +33,6 @@ ax2.legend()
 st.pyplot(fig2)
 
 # Tail Risk Meter
-st.subheader("🚨 Tail Risk Alert")
-tail_prob = 0.1126  # Replace with dynamic EVT value if needed
+st.subheader("Tail Risk Alert")
+tail_prob = 0.1126
 st.metric(label="Probability of >3σ Shock", value=f"{tail_prob*100:.2f}%")
