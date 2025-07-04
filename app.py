@@ -8,8 +8,13 @@ st.title("📈 NeuroGARCH++ Volatility Forecast Dashboard")
 
 # Load Data
 returns = pd.read_csv("returns.csv", parse_dates=['date'], index_col='date')
-vol = pd.read_csv("forecast_vol.csv", index_col='date')
-VaR = pd.read_csv("VaR_table.csv", index_col='date')
+vol = pd.read_csv("forecast_vol.csv", parse_dates=['date'], index_col='date')
+VaR = pd.read_csv("VaR_table.csv", parse_dates=['date'], index_col='date')
+
+# Ensure datetime
+returns.index = pd.to_datetime(returns.index)
+vol.index = pd.to_datetime(vol.index)
+VaR.index = pd.to_datetime(VaR.index)
 
 # Plot Forecasted Volatility vs Realized Return
 st.subheader("Volatility Forecast vs Realized Return")
